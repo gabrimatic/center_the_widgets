@@ -1,6 +1,6 @@
 name: center_the_widgets
-description: A widget that shows it's chile in the center of the screen.
-version: 1.0.0
+description: A simple widget that shows its child in the center of the screen. You can wrap any widget that you want to keep its size with CenterTheWidgets.
+version: 1.0.0+1
 homepage: https://github.com/gabrimatic/center_the_widgets
 
 environment:
