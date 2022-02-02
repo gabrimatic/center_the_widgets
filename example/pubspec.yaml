@@ -1,0 +1,21 @@
+name: example
+description: This an example of CenterTheWidgets package.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=2.15.1 <3.0.0"
+
+dependencies:
+  center_the_widgets:
+    path: ../
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+
+flutter:
+  uses-material-design: true
