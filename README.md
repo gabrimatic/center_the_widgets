@@ -9,6 +9,12 @@
 ---
 **When** you are working with small screens like mobiles, everything is bright as you develop them. But, **What if** you want to publish your app for the web or large devices? All of your designs will be **corrupted**! As long as the screen gets bigger, your beautiful designed elements get to stretch!
 
+* Without CenterTheWidgets:
+<img src="https://github.com/gabrimatic/center_the_widgets/raw/master/example/without_center_the_widgets.png"/>
+
+* With CenterTheWidgets:
+<img src="https://github.com/gabrimatic/center_the_widgets/raw/master/example/with_center_the_widgets.png"/>
+
 The best solution is to write your code fully responsive to handle every screen size;
 ##### But, What if you don't have **time** for that? Or you want to keep your mobile design on other platforms too?
 
@@ -19,6 +25,8 @@ Just wrap your root widget with CenterTheWidget, and after that, all of your dia
 ```dart
   runApp(MaterialApp(home: CenterTheWidgets(child: YourHomeWidget())));
 ```
+
+
 
 ##### What about the edges? What will be shown on the rest of the screen?
 It is so easy! You can pass the color or edgesImage parameters to make edges more gorgeous!
