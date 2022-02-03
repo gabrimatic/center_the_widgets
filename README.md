@@ -1,12 +1,14 @@
 ## Center any widget in Flutter
 
----
+------------
 
-*A simple widget that shows its child in the center of the screen.*
+Sometimes you want to deploy your mobile design-based application for large screens on the #web or desktop, and you didn't write any #code to make it responsive!
+‌
+🤝 CenterTheWidgets is developed to handle this for you.
 
 ### What is this widget?
 
----
+------------
 **When** you are working with small screens like mobiles, everything is bright as you develop them. But, **What if** you want to publish your app for the web or large devices? All of your designs will be **corrupted**! As long as the screen gets bigger, your beautiful designed elements get to stretch!
 
 
@@ -35,7 +37,7 @@ It is so easy! You can pass the color or edgesImage parameters to make edges mor
 
 ### How to use it?
 
----
+------------
 **1.  Add the package to pubspec.yaml dependency:**
 
 ```yaml
