@@ -4,6 +4,7 @@
 
 Sometimes you want to deploy your mobile design-based application for large screens on the #web or desktop, and you didn't write any #code to make it responsive!
 ‌
+
 🤝 CenterTheWidgets is developed to handle this for you.
 
 ### What is this widget?

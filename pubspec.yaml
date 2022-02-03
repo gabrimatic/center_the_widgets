@@ -1,6 +1,6 @@
 name: center_the_widgets
-description: Sometimes you want to deploy your mobile design-based app for large screens on the web or desktop, and you didn't write any code to make it responsive! CenterTheWidgets is developed to handle this for you.
-version: 1.0.0+2
+description: Sometimes you want to deploy your mobile design-based app for large screens and you didn't write any code to make it responsive! This widget is developed to handle this for you.
+version: 1.0.0+3
 homepage: https://github.com/gabrimatic/center_the_widgets
 
 environment:
