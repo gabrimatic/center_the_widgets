@@ -1,68 +1,113 @@
+import 'dart:math' as math;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+/// Centers a child widget inside the available screen and limits its size.
+///
+/// This is useful for Flutter apps that were designed for phones first but
+/// also run on web, desktop, tablets, foldables, or other wide displays.
 class CenterTheWidgets extends StatelessWidget {
-  /// This is the widget that you want to be centered.
-  /// For more effective results, you can pass the root of widgets:
+  /// The widget that should keep a mobile-friendly size.
+  ///
+  /// For app-wide behavior, wrap the root screen:
+  ///
   /// ```dart
   /// runApp(MaterialApp(home: CenterTheWidgets(child: YourHomeWidget())));
   /// ```
   final Widget child;
 
-  /// When the screen is bigger than the [maxWidthToResize],
-  /// the child widget will be in the center,
-  /// and the other parts of the screen will be filled by color or image.
+  /// The maximum width assigned to [child] while [enabled] is true.
   ///
-  /// The default value is [600]
+  /// Screens narrower than this value keep their own width. Wider screens show
+  /// [child] at this width and use [alignment] to position it.
   final double maxWidthToResize;
 
-  /// The enable ability of the [CenterTheWidgets].
+  /// Optional maximum height assigned to [child] while [enabled] is true.
   ///
-  /// The default value is [kIsWeb]:
-  /// It means it only works if you are working on the web platform.
+  /// Leave this null to let the child use the full available height.
+  final double? maxHeightToResize;
+
+  /// Whether the centering behavior is active.
+  ///
+  /// By default this follows [kIsWeb], so existing mobile apps keep their
+  /// native layout unless you opt in with `enabled: true`.
   final bool enabled;
 
-  /// The color of the edges
-  /// The default value is [#f8f8f8]
+  /// The background color shown around the centered child.
   final Color color;
 
-  /// The image that will be shown at the edges.
-  ///
-  /// If you pass this field, the [color] field will be ignored.
+  /// The background image shown around the centered child.
   final ImageProvider? edgesImage;
 
+  /// How [edgesImage] should be fitted into the available background.
+  final BoxFit edgesImageFit;
+
+  /// How [edgesImage] should be aligned inside the available background.
+  final AlignmentGeometry edgesImageAlignment;
+
+  /// Where the constrained child should sit inside the available background.
+  final AlignmentGeometry alignment;
+
+  /// Creates a centered, optionally size-limited surface for [child].
   const CenterTheWidgets({
-    Key? key,
+    super.key,
     required this.child,
     this.color = const Color(0xfff8f8f8),
     this.maxWidthToResize = 600,
+    this.maxHeightToResize,
     this.enabled = kIsWeb,
     this.edgesImage,
-  }) : super(key: key);
+    this.edgesImageFit = BoxFit.cover,
+    this.edgesImageAlignment = Alignment.center,
+    this.alignment = Alignment.center,
+  })  : assert(maxWidthToResize > 0),
+        assert(maxHeightToResize == null || maxHeightToResize > 0);
 
   @override
   Widget build(BuildContext context) {
     if (!enabled) return child;
 
-    final width = MediaQuery.of(context).size.width > maxWidthToResize
-        ? maxWidthToResize
-        : MediaQuery.of(context).size.width;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final mediaSize = MediaQuery.maybeSizeOf(context);
+        final availableWidth = constraints.hasBoundedWidth
+            ? constraints.maxWidth
+            : mediaSize?.width;
+        final availableHeight = constraints.hasBoundedHeight
+            ? constraints.maxHeight
+            : mediaSize?.height;
 
-    return Container(
-      decoration: edgesImage == null
-          ? BoxDecoration(color: color)
-          : BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: edgesImage!,
-              ),
+        final width = availableWidth == null
+            ? maxWidthToResize
+            : math.min(availableWidth, maxWidthToResize);
+        final height = switch ((availableHeight, maxHeightToResize)) {
+          (final double availableHeight, final double maxHeight) =>
+            math.min(availableHeight, maxHeight),
+          _ => null,
+        };
+
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            color: color,
+            image: edgesImage == null
+                ? null
+                : DecorationImage(
+                    fit: edgesImageFit,
+                    alignment: edgesImageAlignment,
+                    image: edgesImage!,
+                  ),
+          ),
+          child: Align(
+            alignment: alignment,
+            child: SizedBox(
+              width: width,
+              height: height,
+              child: child,
             ),
-      alignment: Alignment.center,
-      width: MediaQuery.of(context).size.width,
-      child: SizedBox(
-        width: width,
-        child: child,
-      ),
+          ),
+        );
+      },
     );
   }
 }

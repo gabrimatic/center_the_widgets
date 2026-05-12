@@ -1,3 +1,4 @@
-library center_the_widgets;
+/// Keeps mobile-first Flutter layouts centered and readable on large screens.
+library;
 
-export 'package:center_the_widgets/src/widget.dart';
+export 'src/widget.dart';

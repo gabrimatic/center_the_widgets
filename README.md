@@ -1,74 +1,148 @@
-## Center any widget in Flutter
+# CenterTheWidgets
 
-------------
+[![pub package](https://img.shields.io/pub/v/center_the_widgets.svg)](https://pub.dev/packages/center_the_widgets)
+[![Pub Points](https://img.shields.io/pub/points/center_the_widgets)](https://pub.dev/packages/center_the_widgets/score)
+[![License: MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
+[![Platform: Android | iOS | Linux | macOS | Web | Windows](https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20Linux%20%7C%20macOS%20%7C%20Web%20%7C%20Windows-lightgrey.svg)]()
 
-Sometimes you want to deploy your mobile design-based application for large screens on the #web or desktop, and you didn't write any #code to make it responsive!
-‌
+CenterTheWidgets keeps mobile-first Flutter layouts centered and readable on web,
+desktop, tablets, foldables, and other large screens.
 
-🤝 CenterTheWidgets is developed to handle this for you.
+Use it when an app was designed around a phone-sized surface, but still needs to
+run cleanly on wider viewports. Wrap a screen, route, or app root, choose the
+maximum width you trust, and let the rest of the screen become a controlled
+background instead of stretched UI.
 
-### What is this widget?
+## At a Glance
 
-------------
-**When** you are working with small screens like mobiles, everything is bright as you develop them. But, **What if** you want to publish your app for the web or large devices? All of your designs will be **corrupted**! As long as the screen gets bigger, your beautiful designed elements get to stretch!
+| Need | What CenterTheWidgets does |
+|------|----------------------------|
+| Mobile layout on wide screens | Keeps the child at a maximum width and centers it in the available space. |
+| Web and desktop release without a full responsive rewrite | Preserves the phone-sized surface while you plan deeper responsive work. |
+| Branded or calmer side area | Fills the edges with a color or image. |
+| App-wide behavior | Wrap the root screen so dialogs, sheets, and route content stay in the same centered surface. |
+| Fine control | Tune width, optional height, child alignment, image fit, and image alignment. |
 
-
-The best solution is to write your code fully responsive to handle every screen size;
-##### But, What if you don't have **time** for that? Or you want to keep your mobile design on other platforms too?
-
-That's why I developed this package!
-You can wrap any widget that you want to keep its size, with CenterTheWidgets!
-##### You want to do this for your whole app?
-Just wrap your root widget with CenterTheWidget, and after that, all of your dialogs and widgets will respect your design, and your design will be as beautiful as it was.
-```dart
-  runApp(MaterialApp(home: CenterTheWidgets(child: YourHomeWidget())));
-```
-
-
-
-##### What about the edges? What will be shown on the rest of the screen?
-It is so easy! You can pass the color or edgesImage parameters to make edges more gorgeous!
-
-* Without CenterTheWidgets:
-<img src="https://github.com/gabrimatic/center_the_widgets/raw/master/example/without_center_the_widgets.png"/>
-
-* With CenterTheWidgets:
-<img src="https://github.com/gabrimatic/center_the_widgets/raw/master/example/with_center_the_widgets.png"/>
-
-
-### How to use it?
-
-------------
-**1.  Add the package to pubspec.yaml dependency:**
+## Install
 
 ```yaml
 dependencies:
-  center_the_widgets: ^1.0.0
+  center_the_widgets: ^2.0.0
 ```
-
-**2. Import package:**
 
 ```dart
 import 'package:center_the_widgets/center_the_widgets.dart';
 ```
 
-**3. Wrap any widget with CenterTheWidgets to show them in the center of the screen:**
+## Quick Start
+
+Wrap the part of the UI that should keep its mobile-sized surface:
+
 ```dart
-    return CenterTheWidgets(
-      child: Scaffold(
-        body: const Text('Hi!'),
-      ),
-    );
+return CenterTheWidgets(
+  maxWidthToResize: 430,
+  color: const Color(0xfff8f8f8),
+  child: Scaffold(
+    appBar: AppBar(title: const Text('Mobile-first screen')),
+    body: const Center(child: Text('Readable on large screens')),
+  ),
+);
 ```
 
-## Developer
-By [Hossein Yousefpour](https://gabrimatic.info "Hossein Yousefpour")
+For app-wide behavior, wrap the root screen:
 
-&copy; All rights reserved.
+```dart
+void main() {
+  runApp(
+    const MaterialApp(
+      home: CenterTheWidgets(
+        maxWidthToResize: 430,
+        child: HomeScreen(),
+      ),
+    ),
+  );
+}
+```
 
-## Donate
-* <a href="https://www.buymeacoffee.com/gabrimatic" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Book" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+By default, `enabled` follows Flutter's `kIsWeb`. Set `enabled: true` when you
+want the same centered surface on desktop, tablet, or mobile.
 
-OR
+## Before And After
 
-* ETH Address: **0xc2F103b11C5d7bE3Abe292EE549a3ba418655A0E**
+Without CenterTheWidgets:
+
+<p align="center">
+  <img src="https://github.com/gabrimatic/center_the_widgets/raw/master/example/without_center_the_widgets.png" width="760" alt="A mobile-first Flutter layout stretched across a wide screen">
+</p>
+
+With CenterTheWidgets:
+
+<p align="center">
+  <img src="https://github.com/gabrimatic/center_the_widgets/raw/master/example/with_center_the_widgets.png" width="760" alt="A mobile-first Flutter layout centered on a wide screen">
+</p>
+
+## Backgrounds
+
+Use a color for a quiet edge area:
+
+```dart
+CenterTheWidgets(
+  color: const Color(0xff101820),
+  child: const HomeScreen(),
+);
+```
+
+Use an image when the surrounding space should carry visual identity:
+
+```dart
+CenterTheWidgets(
+  edgesImage: const AssetImage('assets/background.jpg'),
+  edgesImageFit: BoxFit.cover,
+  edgesImageAlignment: Alignment.center,
+  child: const HomeScreen(),
+);
+```
+
+The color is still painted behind the image, so transparent images and loading
+states have a stable fallback.
+
+## Size And Alignment
+
+```dart
+CenterTheWidgets(
+  maxWidthToResize: 430,
+  maxHeightToResize: 932,
+  alignment: Alignment.topCenter,
+  child: const CheckoutFlow(),
+);
+```
+
+| Option | Default | Notes |
+|--------|---------|-------|
+| `maxWidthToResize` | `600` | Maximum width assigned to the child while enabled. |
+| `maxHeightToResize` | `null` | Optional maximum height. Leave null for full available height. |
+| `enabled` | `kIsWeb` | Set true to opt in outside web. |
+| `color` | `Color(0xfff8f8f8)` | Background color around the child. |
+| `edgesImage` | `null` | Optional background image around the child. |
+| `edgesImageFit` | `BoxFit.cover` | Fit used by `edgesImage`. |
+| `edgesImageAlignment` | `Alignment.center` | Image alignment used by `edgesImage`. |
+| `alignment` | `Alignment.center` | Child position inside the available space. |
+
+## Example
+
+```bash
+cd example
+flutter run -d chrome
+```
+
+The example intentionally uses an oversized child so the package behavior is
+easy to see.
+
+## Compatibility
+
+CenterTheWidgets 2.x targets Dart 3 and current Flutter stable releases. Use the
+1.x line only if you still need the old Dart 2 constraint.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
