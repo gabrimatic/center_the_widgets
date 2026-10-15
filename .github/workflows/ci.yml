@@ -4,23 +4,50 @@ on:
   push:
     branches:
       - master
+    paths:
+      - ".github/workflows/ci.yml"
+      - "analysis_options.yaml"
+      - "pubspec.yaml"
+      - "lib/**"
+      - "test/**"
+      - "example/**"
+      - "README.md"
+      - "CHANGELOG.md"
+      - "LICENSE"
   pull_request:
+    paths:
+      - ".github/workflows/ci.yml"
+      - "analysis_options.yaml"
+      - "pubspec.yaml"
+      - "lib/**"
+      - "test/**"
+      - "example/**"
+      - "README.md"
+      - "CHANGELOG.md"
+      - "LICENSE"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   package:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-
-      - name: Show Flutter version
-        run: flutter --version
+          cache: true
 
       - name: Install dependencies
         run: flutter pub get
