@@ -34,7 +34,7 @@ class Example extends StatelessWidget {
       ),
       bottomSheet: Container(
         color: Colors.green,
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery.sizeOf(context).width,
         padding: const EdgeInsets.symmetric(vertical: 16),
         child: const Text(
           'Bottom sheets stay inside the centered surface too.',

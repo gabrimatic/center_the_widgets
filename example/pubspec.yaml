@@ -4,12 +4,11 @@ version: 1.0.0
 publish_to: none
 
 environment:
-  sdk: ^3.2.0
+  sdk: ^3.4.0
 
 dependencies:
   center_the_widgets:
     path: ../
-  cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
 
