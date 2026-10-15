@@ -27,7 +27,7 @@ background instead of stretched UI.
 
 ```yaml
 dependencies:
-  center_the_widgets: ^2.0.0
+  center_the_widgets: ^2.0.1
 ```
 
 ```dart

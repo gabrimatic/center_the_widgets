@@ -1,6 +1,6 @@
 name: center_the_widgets
 description: Keep mobile-first Flutter layouts centered and readable on web, desktop, tablets, and other large screens.
-version: 2.0.0
+version: 2.0.1
 homepage: https://github.com/gabrimatic/center_the_widgets
 repository: https://github.com/gabrimatic/center_the_widgets
 issue_tracker: https://github.com/gabrimatic/center_the_widgets/issues
@@ -26,7 +26,7 @@ platforms:
   windows:
 
 environment:
-  sdk: ^3.2.0
+  sdk: ^3.4.0
   flutter: ">=3.22.0"
 
 dependencies:

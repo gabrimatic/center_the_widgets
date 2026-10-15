@@ -4,6 +4,15 @@ This changelog tracks notable CenterTheWidgets changes.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.0.1] - 2026-10-15
+
+### Changed
+
+- Raised the Dart SDK lower bound to 3.4 to match the existing Flutter 3.22 minimum. No API changes.
+- Example app uses `MediaQuery.sizeOf` and drops the unused `cupertino_icons` dependency.
+- CI runs only when package files change, cancels superseded runs, caches the Flutter SDK, and uses `actions/checkout@v7`.
+- Dependabot now opens one grouped pull request per ecosystem each month.
+
 ## [2.0.0] - 2026-05-12
 
 ### Added
